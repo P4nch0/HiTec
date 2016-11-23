@@ -12,10 +12,10 @@ def fill_teams():
     expected = 0
     num_teams = 0
     while expected <= 0:
-        expected = int(input("Number of expected students: "))
+        expected = int(input("Number of expected students (1+): "))
 
     while num_teams <= 0 or num_teams > 9:
-        num_teams = int(input("Number of teams per color: "))
+        num_teams = int(input("Number of teams per color (1-9): "))
     for c in range(0, 5):
         for i in range(0, num_teams):
             t = tm.Team(expected, num_teams)
@@ -41,12 +41,12 @@ def new_student():
     teams[0].add_student(std.Student('A01202727', 'Pancho', 'Nunez', 'Male', 'MEX'))
     s = std.Student(student_id, name, last_name, gender, nationality)
 
-    assign(s)
+    bound_branch_assign(s)
     return
 
 
-def assign(s):
-    weights = []
+def bound_branch_assign(s):
+    costs = []
     i = 0
     for team in teams:
         w = 0
@@ -58,9 +58,13 @@ def assign(s):
                 w += 1
             if n == s.get_nat():
                 w += 1
-        weights.append(w)
-        print(weights[i])
+            costs.append(w)
+        # print(costs[i])
         i += 1
+    bound = min(costs)
+    index = costs.index(bound)
+    teams[index].add_student(s)
+    # print('Lowest bound:' + str(bound) + ' Index: ' + str(index))
 
 
 def menu():
