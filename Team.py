@@ -26,8 +26,8 @@ class Team:
     def get_students(self):
         return len(self.__students)
 
-    def get_full(self):
-        return 'Is full: {}'.format(len(self.__students) == self.__team_size)
+    def is_full(self):
+        return len(self.__students) == self.__team_size
 
     def add_student(self, s):
         self.__students.append(s)

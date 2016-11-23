@@ -12,7 +12,7 @@ def fill_teams():
     expected = 0
     num_teams = 0
     while expected <= 0:
-        expected = int(input("Number of expected students (1+): "))
+        expected = int(input("Number of expected students (>1): "))
 
     while num_teams <= 0 or num_teams > 9:
         num_teams = int(input("Number of teams per color (1-9): "))
@@ -27,8 +27,9 @@ def fill_teams():
 def print_teams():
     for team in teams:
         print(team.get_team())
-        print('Members')
+        print('Members:')
         team.print_students()
+        print('---------------')
 
 
 def new_student():
@@ -38,7 +39,7 @@ def new_student():
     last_name = input('Last name: ')
     gender = input('Gender (Male/Female): ')
     nationality = input('Nationality (airport code): ')
-    teams[0].add_student(std.Student('A01202727', 'Pancho', 'Nunez', 'Male', 'MEX'))
+    # teams[0].add_student(std.Student('A01202727', 'Pancho', 'Nunez', 'Male', 'MEX'))
     s = std.Student(student_id, name, last_name, gender, nationality)
 
     bound_branch_assign(s)
@@ -49,21 +50,26 @@ def bound_branch_assign(s):
     costs = []
     i = 0
     for team in teams:
-        w = 0
+        c = 0
         students = team.get_list()
         for student in students:
             g = student.get_gender()
             n = student.get_nat()
             if g == s.get_gender():
-                w += 1
+                c += 1
             if n == s.get_nat():
-                w += 1
-            costs.append(w)
+                c += 1
+        costs.append(c)
         # print(costs[i])
         i += 1
     bound = min(costs)
     index = costs.index(bound)
-    teams[index].add_student(s)
+
+    if not teams[index].is_full():
+        teams[index].add_student(s)
+    elif teams[index].is_full():
+        teams[index+1].add_student(s)
+
     # print('Lowest bound:' + str(bound) + ' Index: ' + str(index))
 
 
