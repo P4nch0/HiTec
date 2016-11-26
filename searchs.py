@@ -1,5 +1,5 @@
 import collections
-
+import networkx as nx
 
 class SimpleGraph:
     def __init__(self):
@@ -49,6 +49,44 @@ def breadth_first_search_1(graph, start):
                 frontier.put(next)
                 visited[next] = True
 
+# breadth_first_search_1(example_graph, 'A')
+
+G = nx.Graph()
+
+G.add_nodes_from(['A', 'B', 'C', 'D', 'E'])
+G.add_edge('A', 'B')
+
+G.add_edge('B', 'C')
+G.add_edge('B', 'D')
+
+G.add_edge('A', 'C')
+
+G.add_edge('D', 'E')
+G.add_edge('D', 'A')
+
+G.add_edge('E', 'B')
 
 
-breadth_first_search_1(example_graph, 'A')
+def breadth_first_search(start):
+    # print out what we find
+    frontier = Queue()
+    frontier.put(start)
+    visited = {}
+    visited[start] = True
+    print(example_graph.edges)
+
+    while not frontier.empty():
+        current = frontier.get()
+        print("Visiting %r" % current)
+        for next in G.neighbors(current):
+            if next not in visited:
+                frontier.put(next)
+                visited[next] = True
+
+breadth_first_search('A')
+
+
+
+
+
+

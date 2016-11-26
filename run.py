@@ -1,10 +1,12 @@
 import random
+import networkx as nx
 import Student as std
 import Team as tm
 
 teams = []
-colors = ['Naranja', 'Rojo', 'Amarillo', 'Verde', 'Morado']
+colors = ['Orange', 'Red', 'Yellow', 'Green', 'Purple']
 total = 0
+G = nx.Graph()
 
 
 def fill_teams():
@@ -15,12 +17,18 @@ def fill_teams():
 
     while num_teams <= 0 or num_teams > 9:
         num_teams = int(input("Number of teams per color (1-9): "))
+    n = 0
     for c in range(0, 5):
         for i in range(0, num_teams):
             t = tm.Team(expected, num_teams)
             t.set_color(colors[c])
             t.set_num(i+1)
+            G.add_node(n, name=colors[c]+' '+str(i+1), color=colors[c], number=(i+1), members=[])
+            n += 1
             teams.append(t)
+
+    for l in range(0, num_teams*5):
+        print(G[l]['name'])
 
 
 def print_teams():
@@ -98,7 +106,7 @@ def bound_branch_assign(s):
 
 
 def menu():
-    # fill_teams()
+    fill_teams()
     op = 1
 
     while op != 0:
