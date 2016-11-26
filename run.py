@@ -1,11 +1,10 @@
-import datetime
-import os
-import sys
+import random
 import Student as std
 import Team as tm
 
 teams = []
 colors = ['Naranja', 'Rojo', 'Amarillo', 'Verde', 'Morado']
+total = 0
 
 
 def fill_teams():
@@ -46,6 +45,31 @@ def new_student():
     return
 
 
+def test_performance():
+    nats = ['MEX', 'MEX', 'MEX', 'MEX', 'MEX', 'MEX', 'MEX', 'USA', 'DEU', 'NLD', 'FRA', 'KOR', 'AUS', 'BEL', 'ESP']
+    gen = ['Male', 'Female']
+
+    expected = 0
+    num_teams = 0
+    while expected <= 0:
+        expected = int(input("Number of expected students (>1): "))
+
+    while num_teams <= 0 or num_teams > 9:
+        num_teams = int(input("Number of teams per color (1-9): "))
+    for c in range(0, 5):
+        for i in range(0, num_teams):
+            t = tm.Team(expected, num_teams)
+            t.set_color(colors[c])
+            t.set_num(i+1)
+            teams.append(t)
+
+    for i in range(0, expected):
+        s = std.Student('A0120'+str(i), 'Std'+str(i), 'Lst'+str(i),
+                        gen[random.randint(0, 1)], nats[random.randint(0, 14)])
+        bound_branch_assign(s)
+    print_teams()
+
+
 def bound_branch_assign(s):
     costs = []
     i = 0
@@ -74,12 +98,13 @@ def bound_branch_assign(s):
 
 
 def menu():
-    fill_teams()
+    # fill_teams()
     op = 1
 
     while op != 0:
         print('1. Print teams')
         print('2. New student')
+        print('3. Test')
         print('0. End')
         op = int(input())
 
@@ -87,5 +112,7 @@ def menu():
             print_teams()
         elif op == 2:
             new_student()
+        elif op == 3:
+            test_performance()
 
 menu()

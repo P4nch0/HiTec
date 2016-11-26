@@ -3,7 +3,6 @@ class Team:
     def __init__(self, expected=None, team_color=None):
         self.__students = []
         self.__team_size = self.ceildiv(expected, (5 * team_color))
-        self.__team_size = None
         self.__color = None
         self.__number = None
 
