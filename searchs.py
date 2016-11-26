@@ -73,7 +73,7 @@ def breadth_first_search(start):
     frontier.put(start)
     visited = {}
     visited[start] = True
-    print(example_graph.edges)
+    print(G.edges())
 
     while not frontier.empty():
         current = frontier.get()

@@ -1,4 +1,4 @@
-# Challenge: Branch and Bound Algorithm
+# Challenge: HiTec Registry
 
 ## Description:
 
