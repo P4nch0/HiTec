@@ -1,20 +1,19 @@
-# Challenge: A* Search Algorithm
+# Challenge: Branch and Bound Algorithm
 
 ## Description:
 
-In order to distribute teams equally, HiTec needs a system that is able to assign the new student registered into a team
-based on the size of the team, gender and nationality of the student and on how many empty teams are left. This way
-teams are distributed equally between international and national students, boys and girls.
+In order to distribute teams equally, HiTec's registry system needs an algorithm that is able to assign the new student registered
+into a team based on the size of the team, gender and nationality of the student. This way teams are distributed equally between
+international and national students, boys and girls.
 
-## Specs:
+## Requirements:
 
-- Python 3.52
-- Django
+- Python 3.5
+
+## Usage:
+
+- python run.py
 
 ## Team Members:
 
 - Francisco Núñez Gómez - A01202727
-
-## Library used:
-
-Django: https://docs.djangoproject.com/en/1.10/
