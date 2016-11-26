@@ -37,3 +37,6 @@ class Team:
 
     def get_list(self):
         return self.__students
+
+    def score(self):
+        return self.__team_size

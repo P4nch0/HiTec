@@ -1,6 +1,6 @@
 class Student:
 
-    def __init__(self, student_id=None, name=None, last_name=None, gender=None, nationality=None):
+    def __init__(self, student_id, name, last_name, gender, nationality):
         self.__student_id = student_id
         self.__name = name
         self.__last_name = last_name
@@ -12,8 +12,8 @@ class Student:
                                                                           self.__student_id, self.__gender,
                                                                           self.__nationality)
 
-    def get_nat(self):
+    def nat(self):
         return self.__nationality
 
-    def get_gender(self):
+    def gen(self):
         return self.__gender

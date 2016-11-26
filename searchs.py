@@ -1,23 +1,6 @@
 import collections
 import networkx as nx
 
-class SimpleGraph:
-    def __init__(self):
-        self.edges = {}
-
-    def neighbors(self, id):
-        return self.edges[id]
-
-
-example_graph = SimpleGraph()
-example_graph.edges = {
-    'A': ['B'],
-    'B': ['A', 'C', 'D'],
-    'C': ['A'],
-    'D': ['E', 'A'],
-    'E': ['B']
-}
-
 
 class Queue:
     def __init__(self):
@@ -32,24 +15,6 @@ class Queue:
     def get(self):
         return self.elements.popleft()
 
-
-def breadth_first_search_1(graph, start):
-    # print out what we find
-    frontier = Queue()
-    frontier.put(start)
-    visited = {}
-    visited[start] = True
-    print(example_graph.edges)
-
-    while not frontier.empty():
-        current = frontier.get()
-        print("Visiting %r" % current)
-        for next in graph.neighbors(current):
-            if next not in visited:
-                frontier.put(next)
-                visited[next] = True
-
-# breadth_first_search_1(example_graph, 'A')
 
 G = nx.Graph()
 
