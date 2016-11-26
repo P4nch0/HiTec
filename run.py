@@ -3,6 +3,7 @@ import collections
 import networkx as nx
 import Student as std
 import Team as tm
+import math
 
 teams = []
 colors = ['Orange', 'Red', 'Yellow', 'Green', 'Purple']
@@ -26,7 +27,8 @@ def fill_teams():
             t.set_color(colors[c])
             t.set_num(i+1)
             # fill graph
-            G.add_node(n, name=colors[c]+' '+str(i+1), color=colors[c], number=(i+1), members=[], score=t.score())
+            G.add_node(n, name=colors[c]+' '+str(i+1), color=colors[c], number=(i+1),
+                       members=[], score=math.floor(t.score()*.7), max=t.score())
             n += 1
             teams.append(t)
 
@@ -69,11 +71,12 @@ def breadth_first_search(start, s):
         # print(G.node[current])
         sc = G.node[current]['score']
         # print(str(sc))
-        # print(s.nat(), s.nat() == 'MEX')
-        sc -= 1
+        if s.nat() == 'MEX':
+            sc -= 1
 
-        if len(G.node[current]['members']) < G.node[current]['score'] and not ins:
-            G.node[current]['members'].append(s)
+        if len(G.node[current]['members']) < G.node[current]['max'] and not ins and sc >= 0:
+            G.node[current]['members'].append(s.nat())
+            G.node[current]['score'] = sc
             ins = True
             for next in G.neighbors(current):
                 if next not in visited:
@@ -90,18 +93,18 @@ def breadth_first_search(start, s):
 
 def print_graph():
     for i in range(0, num_teams*5):
-        print(G.node[i]['name'] + ': ' + str(len(G.node[i]['members'])) + ' members - ' + str(G.node[i]['score']))
+        print(G.node[i]['name'] + ': ' + str(len(G.node[i]['members'])) + ' members - ' + str(G.node[i]['members']))
     # print('-------------------')
 
 
 def test_bf():
     nats = ['MEX', 'MEX', 'MEX', 'MEX', 'MEX', 'MEX', 'MEX', 'USA', 'DEU', 'NLD', 'FRA', 'KOR', 'AUS', 'BEL', 'ESP']
     gen = ['Male', 'Female']
-
     for i in range(0, expected):
         s = std.Student('A0120'+str(i), 'Std'+str(i), 'Lst'+str(i),
                         gen[random.randint(0, 1)], nats[random.randint(0, 14)])
         breadth_first_search(random.randint(0, num_teams*5-1), s)
+
     print_graph()
 
 
@@ -113,7 +116,7 @@ def menu():
     # print('1. Print teams')
     # print('2. New student')
     print('1. Test Breadth First')
-    print('2. ')
+    # print('2. ')
     # print('0. End')
     op = int(input())
 
@@ -125,23 +128,3 @@ def menu():
         test_bf()
 
 menu()
-
-# fill_teams()
-# def breadth_first_search(start):
-#     # print out what we find
-#     frontier = Queue()
-#     frontier.put(start)
-#     visited = {}
-#     visited[start] = True
-#     print(G.edges())
-#
-#     while not frontier.empty():
-#         current = frontier.get()
-#         print("Visiting %r" % current)
-#         for next in G.neighbors(current):
-#             if next not in visited:
-#                 frontier.put(next)
-#                 visited[next] = True
-#
-# breadth_first_search(0)
-

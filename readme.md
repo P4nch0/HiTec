@@ -13,7 +13,10 @@ international and national students, boys and girls.
 
 ## Usage:
 
-- python run.py
+1. python run.py
+2. Enter number of expected students
+3. Enter number of teams per color
+4. Teams will be printed
 
 ## Team Members:
 
