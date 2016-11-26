@@ -9,6 +9,7 @@ international and national students, boys and girls.
 ## Requirements:
 
 - Python 3.5
+- networkx (https://networkx.github.io/documentation/networkx-1.10/tutorial/tutorial.html#directed-graphs)
 
 ## Usage:
 
