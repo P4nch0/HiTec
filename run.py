@@ -4,6 +4,7 @@ import networkx as nx
 import Student as std
 import Team as tm
 import math
+import heapq
 
 teams = []
 colors = ['Orange', 'Red', 'Yellow', 'Green', 'Purple']
@@ -58,6 +59,20 @@ class Queue:
         return self.elements.popleft()
 
 
+class PriorityQueue:
+    def __init__(self):
+        self.elements = []
+
+    def empty(self):
+        return len(self.elements) == 0
+
+    def put(self, item, priority):
+        heapq.heappush(self.elements, (priority, item))
+
+    def get(self):
+        return heapq.heappop(self.elements)[1]
+
+
 def breadth_first_search(start, s):
     # print out what we find
     frontier = Queue()
@@ -89,6 +104,35 @@ def breadth_first_search(start, s):
                 if next not in visited:
                     frontier.put(next)
                     visited[next] = True
+
+
+def heuristic(a, b):
+    (x1, y1) = a
+    (x2, y2) = b
+    return abs(x1 - x2) + abs(y1 - y2)
+
+
+def a_star_search(start, goal):
+    frontier = PriorityQueue()
+    frontier.put(start, 0)
+    came_from = {}
+    cost_so_far = {}
+    came_from[start] = None
+    cost_so_far[start] = 0
+
+    while not frontier.empty():
+        current = frontier.get()
+
+        if current == goal:
+            break
+
+        for next in G.neighbors(current):
+            new_cost = cost_so_far[current] + G[current][next]['cost']
+            if next not in cost_so_far or new_cost < cost_so_far[next]:
+                cost_so_far[next] = new_cost
+                priority = new_cost + heuristic(goal, next)
+                frontier.put(next, priority)
+                came_from[next] = current
 
 
 def print_graph():
@@ -128,3 +172,28 @@ def menu():
         test_bf()
 
 menu()
+
+
+# def bound_branch_assign(s):
+#     costs = []
+#     i = 0
+#     for team in teams:
+#         c = 0
+#         students = team.get_list()
+#         for student in students:
+#             g = student.get_gender()
+#             n = student.get_nat()
+#             if g == s.get_gender():
+#                 c += 1
+#             if n == s.get_nat():
+#                 c += 1
+#         costs.append(c)
+#         # print(costs[i])
+#         i += 1
+#     bound = min(costs)
+#     index = costs.index(bound)
+#
+#     if not teams[index].is_full():
+#         teams[index].add_student(s)
+#     elif teams[index].is_full():
+#         teams[index+1].add_student(s)

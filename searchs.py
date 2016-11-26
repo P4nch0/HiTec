@@ -85,7 +85,7 @@ def a_star_search(start, goal):
             break
 
         for next in G.neighbors(current):
-            new_cost = cost_so_far[current] + cost(current, next)
+            new_cost = cost_so_far[current] + G.cost(current, next)
             if next not in cost_so_far or new_cost < cost_so_far[next]:
                 cost_so_far[next] = new_cost
                 priority = new_cost + heuristic(goal, next)
